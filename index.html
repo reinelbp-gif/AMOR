@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Lessly ❤️</title>
 
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  text-align: center;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  background-color: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+#card {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  animation: fadeIn 2s ease-in-out;
+  max-width: 350px;
+}
+
+h1 {
+  color: #ff4d6d;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.8);}
+  to {opacity: 1; transform: scale(1);}
+}
+
+/* Corazones flotando */
+.heart {
+  position: absolute;
+  color: rgba(255, 0, 100, 0.6);
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<button id="openBtn">Ábreme Lessly ❤️</button>
+
+<div id="card">
+  <h1>Para ti, Lessly 💖</h1>
+  <p id="text"></p>
+</div>
+
+<audio id="music">
+  <source src="historia_de_amor.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const btn = document.getElementById("openBtn");
+const card = document.getElementById("card");
+const music = document.getElementById("music");
+const text = document.getElementById("text");
+
+const message = "Gracias por ser mi alegría, mi paz y mi hogar. Desde que llegaste a mi vida todo tiene más color. Te amo hoy, mañana y siempre, Lessly ❤️";
+
+let i = 0;
+
+btn.addEventListener("click", function() {
+  btn.style.display = "none";
+  card.style.display = "block";
+
+  // Música suave
+  music.volume = 0.2;
+  music.play();
+
+  // Efecto máquina de escribir
+  function typeWriter() {
+    if (i < message.length) {
+      text.innerHTML += message.charAt(i);
+      i++;
+      setTimeout(typeWriter, 40);
+    }
+  }
+  typeWriter();
+
+  // Crear corazones
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 300);
+});
+</script>
+
+</body>
+</html>
