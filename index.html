@@ -15,7 +15,6 @@ body {
   color: white;
 }
 
-/* Fondo con foto */
 #background {
   position: fixed;
   width: 100%;
@@ -25,8 +24,27 @@ body {
   z-index: -1;
 }
 
-/* Contenido */
+#startScreen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#startBtn {
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+  background: #ff1a75;
+  color: white;
+  cursor: pointer;
+}
+
 #content {
+  display: none;
   position: absolute;
   width: 100%;
   top: 50%;
@@ -36,43 +54,24 @@ body {
 }
 
 h1 {
-  font-size: 38px;
+  font-size: 32px;
   color: #ffd700;
-  text-shadow: 0 0 20px #ff4d88;
-  animation: fadeIn 3s ease-in-out;
 }
 
 #message {
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
 #verse {
-  margin-top: 25px;
+  margin-top: 20px;
   font-style: italic;
   color: #ffcccc;
 }
 
-button {
-  margin-top: 30px;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 30px;
-  background: #ff1a75;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-/* Corazones dorados */
 .heart {
   position: absolute;
   color: gold;
@@ -91,11 +90,14 @@ button {
 
 <div id="background"></div>
 
+<div id="startScreen">
+  <button id="startBtn">Toca aquí, Lessly ❤️</button>
+</div>
+
 <div id="content">
-  <h1>Feliz San Valentín, Lessly ❤️</h1>
+  <h1>Feliz San Valentín, Lessly 💖</h1>
   <p id="message"></p>
   <p id="verse"></p>
-  <button id="finalBtn">Siempre Tú y Yo 💍</button>
 </div>
 
 <audio id="music">
@@ -103,26 +105,23 @@ button {
 </audio>
 
 <script>
+const startBtn = document.getElementById("startBtn");
+const startScreen = document.getElementById("startScreen");
+const content = document.getElementById("content");
 const music = document.getElementById("music");
 const message = document.getElementById("message");
 const verse = document.getElementById("verse");
-const btn = document.getElementById("finalBtn");
 
-const text = "Lessly, desde el día que llegaste a mi vida entendí lo que significa amar de verdad. Contigo he aprendido que el amor no es solo palabras, es presencia, apoyo, fe y compañía. Hoy en este San Valentín quiero recordarte que eres mi bendición más hermosa, mi alegría diaria y la mujer con la que quiero caminar cada día de mi vida.";
+const text = "Lessly, desde el día que llegaste a mi vida entendí lo que significa amar de verdad. Eres mi alegría, mi paz y mi bendición más hermosa. Gracias por cada sonrisa, cada abrazo y cada momento. Te amo hoy y siempre ❤️";
 
 let i = 0;
 
-function typeWriter() {
-  if (i < text.length) {
-    message.innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 40);
-  } else {
-    verse.innerHTML = "“El amor es paciente, es bondadoso. El amor no es envidioso ni jactancioso ni orgulloso.” — 1 Corintios 13:4 ❤️";
-  }
-}
+startBtn.addEventListener("click", function() {
 
-window.onload = function() {
+  startScreen.style.display = "none";
+  content.style.display = "block";
+
+  // Música ahora sí funciona en iPhone
   music.volume = 0.1;
   music.play();
 
@@ -136,6 +135,16 @@ window.onload = function() {
     }
   }, 300);
 
+  function typeWriter() {
+    if (i < text.length) {
+      message.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 40);
+    } else {
+      verse.innerHTML = "“El amor es paciente, es bondadoso.” — 1 Corintios 13:4 ❤️";
+    }
+  }
+
   typeWriter();
 
   setInterval(() => {
@@ -147,10 +156,6 @@ window.onload = function() {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }, 300);
-};
-
-btn.addEventListener("click", () => {
-  alert("Prometo amarte, respetarte y caminar contigo todos los días de mi vida ❤️");
 });
 </script>
 
