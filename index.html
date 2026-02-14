@@ -3,61 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Lessly ❤️</title>
+<title>Feliz San Valentín Mi Princesa ❤️</title>
 
 <style>
 body {
   margin: 0;
-  background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  padding: 0;
   overflow: hidden;
-  text-align: center;
-}
-
-button {
-  padding: 15px 30px;
-  font-size: 20px;
-  border: none;
-  border-radius: 50px;
-  background-color: #ff4d6d;
+  font-family: 'Georgia', serif;
+  background: black;
   color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-button:hover {
-  transform: scale(1.1);
+/* Fondo con foto */
+#background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("nosotros.jpg") center/cover no-repeat;
+  filter: brightness(0.4);
+  z-index: -1;
 }
 
-#card {
-  display: none;
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.2);
-  animation: fadeIn 2s ease-in-out;
-  max-width: 350px;
+/* Contenido */
+#content {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  padding: 20px;
 }
 
 h1 {
-  color: #ff4d6d;
+  font-size: 38px;
+  color: #ffd700;
+  text-shadow: 0 0 20px #ff4d88;
+  animation: fadeIn 3s ease-in-out;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#verse {
+  margin-top: 25px;
+  font-style: italic;
+  color: #ffcccc;
+}
+
+button {
+  margin-top: 30px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: #ff1a75;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 @keyframes fadeIn {
-  from {opacity: 0; transform: scale(0.8);}
-  to {opacity: 1; transform: scale(1);}
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
-/* Corazones flotando */
+/* Corazones dorados */
 .heart {
   position: absolute;
-  color: rgba(255, 0, 100, 0.6);
-  font-size: 20px;
+  color: gold;
+  font-size: 18px;
   animation: float 6s linear infinite;
 }
 
@@ -70,11 +89,13 @@ h1 {
 
 <body>
 
-<button id="openBtn">Ábreme Lessly ❤️</button>
+<div id="background"></div>
 
-<div id="card">
-  <h1>Para ti, Lessly 💖</h1>
-  <p id="text"></p>
+<div id="content">
+  <h1>Feliz San Valentín, Lessly ❤️</h1>
+  <p id="message"></p>
+  <p id="verse"></p>
+  <button id="finalBtn">Siempre Tú y Yo 💍</button>
 </div>
 
 <audio id="music">
@@ -82,34 +103,41 @@ h1 {
 </audio>
 
 <script>
-const btn = document.getElementById("openBtn");
-const card = document.getElementById("card");
 const music = document.getElementById("music");
-const text = document.getElementById("text");
+const message = document.getElementById("message");
+const verse = document.getElementById("verse");
+const btn = document.getElementById("finalBtn");
 
-const message = "Gracias por ser mi alegría, mi paz y mi hogar. Desde que llegaste a mi vida todo tiene más color. Te amo hoy, mañana y siempre, Lessly ❤️";
+const text = "Lessly, desde el día que llegaste a mi vida entendí lo que significa amar de verdad. Contigo he aprendido que el amor no es solo palabras, es presencia, apoyo, fe y compañía. Hoy en este San Valentín quiero recordarte que eres mi bendición más hermosa, mi alegría diaria y la mujer con la que quiero caminar cada día de mi vida.";
 
 let i = 0;
 
-btn.addEventListener("click", function() {
-  btn.style.display = "none";
-  card.style.display = "block";
+function typeWriter() {
+  if (i < text.length) {
+    message.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 40);
+  } else {
+    verse.innerHTML = "“El amor es paciente, es bondadoso. El amor no es envidioso ni jactancioso ni orgulloso.” — 1 Corintios 13:4 ❤️";
+  }
+}
 
-  // Música suave
-  music.volume = 0.2;
+window.onload = function() {
+  music.volume = 0.1;
   music.play();
 
-  // Efecto máquina de escribir
-  function typeWriter() {
-    if (i < message.length) {
-      text.innerHTML += message.charAt(i);
-      i++;
-      setTimeout(typeWriter, 40);
+  let vol = 0.1;
+  let fade = setInterval(() => {
+    if(vol < 0.5){
+      vol += 0.02;
+      music.volume = vol;
+    } else {
+      clearInterval(fade);
     }
-  }
+  }, 300);
+
   typeWriter();
 
-  // Crear corazones
   setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -119,6 +147,10 @@ btn.addEventListener("click", function() {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }, 300);
+};
+
+btn.addEventListener("click", () => {
+  alert("Prometo amarte, respetarte y caminar contigo todos los días de mi vida ❤️");
 });
 </script>
 
